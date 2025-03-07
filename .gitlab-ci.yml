@@ -1,0 +1,30 @@
+---
+stages:
+  - publish
+
+Publish:gitlab-pages:
+  stage: publish
+  image: node:20-alpine
+  rules:
+    # Auto execute for default branch pipeline triggers
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
+    # Manually execute any other environments for default branch pipeline triggers
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
+    # For all other pipeline triggers, do not run this job
+    - when: never
+  before_script:
+    - npm ci --cache .npm --prefer-offline
+  script:
+    - npm run generate
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm/
+  artifacts:
+    paths:
+      - .output/public
+  publish: .output/public
