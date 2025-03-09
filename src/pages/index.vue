@@ -6,6 +6,7 @@ import astroLogo from '../assets/logo.png';
 import Bubbles from '../components/Bubbles.vue'
 import LandingIntro from '../components/LandingIntro.vue'
 import DeviceMontage from '../components/DeviceMontage.vue'
+import GamemodeUIVideo from '../components/GamemodeUIVideo.vue'
 
 definePageMeta({
   layout: 'default'
@@ -16,7 +17,7 @@ definePageMeta({
   <div class="position-absolute hero-bubbles-container">
     <Bubbles/>
   </div>
-  <v-container class="position-absolute hero-content-container">
+  <v-container class="position-relative hero-content-container">
     <v-row no-gutters>
       <v-col cols="6">
         <LandingIntro/>
@@ -26,11 +27,12 @@ definePageMeta({
       </v-col>
     </v-row>
   </v-container>
-  <main>
-    <section id="hero">
-      Landing content here...
+
+  <v-container class="gamemode-ui-video">
+    <section>
+      <GamemodeUIVideo/>
     </section>
-  </main>
+  </v-container>
 </template>
 
 <style scoped>
@@ -45,6 +47,11 @@ definePageMeta({
   margin: 0;
   padding: 0;
   z-index: 10;
+}
+
+.gamemode-ui-video {
+  margin: 0;
+  padding: 0;
 }
 
 .background-container {
