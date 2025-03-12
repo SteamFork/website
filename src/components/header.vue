@@ -11,8 +11,8 @@ const docsIconComponent = shallowRef(ReadTheDocsIcon);
 
 // Navigation menu items
 const menuItems = ref([
-  /*{title: 'Docs', path: 'https://wiki.steamfork.org/', icon: docsIconComponent},*/
-  {title: 'Docs', path: '/', icon: docsIconComponent},
+  {title: 'Docs', path: 'https://wiki.steamfork.org/', icon: docsIconComponent},
+  /*{title: 'Docs', path: '/docs', icon: docsIconComponent},*/
 ])
 
 // Helper function that returns the proper binding object:
@@ -27,7 +27,6 @@ const getButtonProps = (path: string) => {
 </script>
 
 <template>
-  <!--  TODO: Make header transparent -->
   <v-app-bar flat color="transparent" class="position-absolute">
     <v-app-bar-nav-icon class="d-sm-none" variant="text" @click.stop="drawer = !drawer"/>
 
@@ -76,7 +75,7 @@ const getButtonProps = (path: string) => {
       <v-list-item
           v-for="item in menuItems"
           :key="item.title"
-          :to="item.path"
+          v-bind="getButtonProps(item.path)"
           :prepend-icon="item.icon"
           :title="item.title">
       </v-list-item>

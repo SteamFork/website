@@ -260,9 +260,9 @@ onMounted(() => {
 
 <style scoped>
 .wrap {
+  height: 100%;
   overflow: hidden;
   position: relative;
-  height: 100vh;
   background-image: linear-gradient(to bottom, transparent 0%, rgb(var(--v-theme-surface)) 20%, rgb(var(--v-theme-background)) 100%);
 }
 

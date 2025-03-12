@@ -7,6 +7,7 @@ import Bubbles from '../components/Bubbles.vue'
 import LandingIntro from '../components/LandingIntro.vue'
 import DeviceMontage from '../components/DeviceMontage.vue'
 import GamemodeUIVideo from '../components/GamemodeUIVideo.vue'
+import LandingGameCompatibility from '../components/LandingGameCompatibility.vue'
 
 definePageMeta({
   layout: 'default'
@@ -17,7 +18,7 @@ definePageMeta({
   <div class="position-absolute hero-bubbles-container">
     <Bubbles/>
   </div>
-  <v-container class="position-relative hero-content-container">
+  <v-container class="position-absolute hero-content-container">
     <v-row no-gutters>
       <v-col cols="6">
         <LandingIntro/>
@@ -31,12 +32,14 @@ definePageMeta({
   <v-container class="gamemode-ui-video">
     <section>
       <GamemodeUIVideo/>
+      <LandingGameCompatibility/>
     </section>
   </v-container>
 </template>
 
 <style scoped>
 .hero-bubbles-container {
+  height: 110vh;
   top: 0;
 }
 
@@ -50,7 +53,10 @@ definePageMeta({
 }
 
 .gamemode-ui-video {
-  margin: 0;
+  width: 100vw;
+  max-width: 100vw;
+  /* Enough vertical space for the user to scroll. */
+  margin: 100vh 0 0 0;
   padding: 0;
 }
 
