@@ -1,0 +1,57 @@
+name: Build and Publish
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths-ignore:
+      - ".github/**"
+      - "!.github/workflows/**"
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      # ---
+      - name: Checkout
+        uses: actions/checkout@v4
+      # ---
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+          cache-dependency-path: package-lock.json
+      # ---
+      - name: Install
+        id: install-step
+        run: |
+          npm ci --cache npm --prefer-offline
+      # ---
+      - name: Build
+        id: build-step
+        run: |
+          npx nuxt build --preset github_pages
+      # ---
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./.output/public
+
+  Publish:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      # ---
+      - name: Publish to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
